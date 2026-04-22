@@ -2,5 +2,129 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary-color: #CE2D4F;
+    --bg: #121213;
+    --card: #112533;
+    --text: #ffe9e9;
+    --subtleborder: #0f488a;
+    --accent: #3cc1ff;
+    --cardshadow : #141414;
+    --darktext : #161616;
+    --inputbg : #03101d;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg);
+    color: var(--text);
+    height: 100vh;
+}
+
+.gamecontainer {
+    border: 2px solid var(--subtleborder);
+    padding: 2.5rem;
+    border-radius: 1.2rem;
+    background-color: var(--card);
+    box-shadow: 0px 0px 25px 10px var(--cardshadow);
+    width: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+}
+
+.gamecontainer h2 {
+    font-size: 1.7rem;
+}
+
+.gamecontainer h2 span {
+    font-weight: bolder;
+    color: var(--accent);
+}
+
+.gamecontainer .info {
+    /* border: 2px solid red; */
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    /* justify-content: space-between; */
+    justify-content: center;
+}
+
+.gamecontainer .info strong {
+    color: var(--accent);
+}
+
+.gamecontainer input {
+    background: none;
+    border: none;
+    border: 1px solid var(--text);
+    text-align: center;
+    width: 85%;
+    height: 2.5rem;
+    border-radius: 1.1rem;
+    padding: 1rem;
+    color: var(--text);
+    margin: 0.9rem;
+    background: var(--inputbg);
+}
+
+.gamecontainer input:focus{
+    border-color: var(--accent);
+}
+
+#checkbtn {
+    width: 75%;
+    background: none;
+    border: none;
+    height: 1.8rem;
+    background-color: var(--accent);
+    color: var(--darktext);
+    cursor: pointer;
+    margin-top: 1.3rem;
+    border-radius: 1.1rem;
+    height: 2.4rem;
+    font-size: 1.2rem;
+    transition: all 0.1s ease;
+}
+
+#checkbtn:hover {
+    opacity: 0.8;
+    width: 80%;
+}
+
+#checkbtn:active{
+    opacity: 1.2;
+}
+
+#hintbtn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 25%;
+    height: 2.2rem;
+    transition: all 0.1s ease-in-out;
+    color: var(--text);
+    margin-top: 1.2rem;
+}
+
+#hintbtn:hover{
+    /* font-size: 1.1rem; */
+    /* border-bottom: 2px solid var(--text); */
+    text-shadow: 0px 0px 10px var(--text);
+}
+
+#hintbtn:active{
+    color: var(--accent);
+    text-shadow: 0px 0px 10px var(--accent);
 }
 
