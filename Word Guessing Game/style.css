@@ -87,6 +87,7 @@ body {
     font-size: 2.5rem;
     font-weight: 900;
     letter-spacing: 25%;
+    /* border: 2px solid red; */
 }
 
 #checkbtn {
@@ -140,5 +141,17 @@ body {
     padding: 1.1rem;
     font-size: 1.2rem;
     /* text-shadow: 0px 0px 20px red; */
+}
+
+#hint-text {
+    color: var(--accent);
+    /* opacity: 0.7; */
+    text-shadow: 0px 0px 15px var(--accent);
+    padding: 1.1rem;
+    /* display: none; */
+}
+
+#worddisplay {
+    /* font-size: larger; */
 }
 

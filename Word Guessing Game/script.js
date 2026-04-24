@@ -10,8 +10,8 @@ const messageE = document.getElementById("message");
 const wordlist = [
   { word: "javascript", hint: "language to make a we b functionable" },
   { word: "backend", hint: "server side of an applicaiton" },
+  {word: "valorant", hint: "a game that we all love xD"}
 ];
-
 let correctword = "";
 let currentword = "";
 let guessesleft = 5;
@@ -28,7 +28,7 @@ function initgame() {
   }
 
   correctword = randomobj.word;
-  worddisplay.innerText = wordarray.join("");
+  worddisplay.innerText = wordarray.join("").toLocaleUpperCase();
   hinttext.innerText = "";
   userinput.value = "";
   messageE.innerText = "";
@@ -39,12 +39,11 @@ function initgame() {
 function checkguess() {
   let userword = userinput.value.toLowerCase();
 
-  if (!userword) {
+  if (userword=="") {
     messageE.style.color = "#e72c1f";
-    messageE.style.textShadow = "0px 0px 20px #1fe75b";
-    messageE.innerText = "Enter something dawg!";
-    console.log("kuch likho");
-    
+    messageE.style.textShadow = "0px 0px 20px #e72c1f";
+    return messageE.innerText = "Enter something dawg!";
+
   }
 
   if (userword === correctword) {
@@ -53,7 +52,7 @@ function checkguess() {
     messageE.style.color = "#3be444";
     messageE.style.textShadow = "0px 0px 20px #3be444";
     messageE.innerText = `Correct! It is ${correctword.toUpperCase()}`;
-    setTimeout(initgame, 1000);
+    setTimeout(initgame, 1500);
 
   } else {
     guessesleft--;
@@ -62,7 +61,7 @@ function checkguess() {
     messageE.style.color = "#eb2626";
     messageE.style.textShadow = "0px 0px 20px #eb2626";
     messageE.innerText = `Wrong! It was ${correctword.toUpperCase()}`;
-    
+
      if (guessesleft < 1) {
     alert(`Game Over! The word was ${correctword.toUpperCase()}`);
     score = 0;
@@ -74,7 +73,27 @@ function checkguess() {
  
 }
 
-checkbtn.addEventListener("click",checkguess);
+checkbtn.addEventListener("click" ,()=>{
+checkguess();
+});
+
+
+
+userinput.addEventListener("keyup" ,(e)=>{
+    if(e.key=="Enter") {
+        checkguess();
+    }
+})
+
+hintbtn.addEventListener("click",()=>{
+    // hinttext.style.display="flex";
+    // hinttext.style.textAlign="center";
+    const hintt= wordlist.find(obj => obj.word === correctword).hint;
+    hinttext.innerText=`Hint : ${hintt}`;
+})
+
+
+initgame();
 
 // checkbtn.addEventListener("click", ()=> {
 //     let anyvalue = Math.floor(Math.random() * 9);
@@ -101,12 +120,4 @@ checkbtn.addEventListener("click",checkguess);
 
 // })
 
-hintbtn.addEventListener("click", () => {
-  let randomobj = wordlist[Math.floor(Math.random() * wordlist.length)];
 
-  // let hintarray = randomobj.hint;
-  hinttext.innerText = randomobj.hint;
-  console.log(randomobj.hint);
-});
-
-initgame();
