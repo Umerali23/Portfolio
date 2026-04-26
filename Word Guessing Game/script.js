@@ -7,11 +7,17 @@ const guessmsg = document.getElementById("guesses");
 const scoremsg = document.getElementById("score");
 const messageE = document.getElementById("message");
 
+
 const wordlist = [
-  { word: "javascript", hint: "language to make a we b functionable" },
+  { word: "javascript", hint: "language to make a we b functionable"},
   { word: "backend", hint: "server side of an applicaiton" },
-  {word: "valorant", hint: "a game that we all love xD"}
+  {word: "valorant", hint: "a game that we all love xD"},
+  {word: "discord", hint: "the platform where hisaab kitaab gang hangouts"}
 ];
+
+
+
+
 let correctword = "";
 let currentword = "";
 let guessesleft = 5;
@@ -60,14 +66,14 @@ function checkguess() {
 
     messageE.style.color = "#eb2626";
     messageE.style.textShadow = "0px 0px 20px #eb2626";
-    messageE.innerText = `Wrong! It was ${correctword.toUpperCase()}`;
+    messageE.innerText = `Wrong! Tryagain`;
 
      if (guessesleft < 1) {
     alert(`Game Over! The word was ${correctword.toUpperCase()}`);
     score = 0;
     scoreEl.innerText = score;
-    initGame();
-  }
+    setTimeout(initgame, 1500);
+    }
   }
 
  
@@ -95,29 +101,6 @@ hintbtn.addEventListener("click",()=>{
 
 initgame();
 
-// checkbtn.addEventListener("click", ()=> {
-//     let anyvalue = Math.floor(Math.random() * 9);
-//     console.log(anyvalue);
 
-//     let randomobj = wordlist[Math.floor(Math.random() * wordlist.length)];
-
-//     console.log(randomobj.word);
-
-//         let wordarray = randomobj.word.split("");
-
-//     console.log(wordarray);
-
-//     for(let i = wordarray.length -1 ; i > 0 ; i--) {
-//         let j = Math.floor(Math.random() * (i + 1));
-//         [wordarray[i], wordarray[j]] = [wordarray[j] , wordarray[i]];
-//     }
-
-//     console.log(wordarray);
-
-//     console.log(wordarray.join(""));
-
-//     worddisplay.innerText = wordarray.join("").toUpperCase();
-
-// })
 
 
