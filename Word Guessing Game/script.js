@@ -7,33 +7,58 @@ const guessmsg = document.getElementById("guesses");
 const scoremsg = document.getElementById("score");
 const messageE = document.getElementById("message");
 
-
 const wordlist = [
-  { word: "javascript", hint: "language to make a we b functionable"},
-  { word: "backend", hint: "server side of an applicaiton" },
-  {word: "valorant", hint: "a game that we all love xD"},
-  {word: "discord", hint: "the platform where hisaab kitaab gang hangouts"}
+  {
+    word: "javascript",
+    hint: "language to make a we b functionable",
+    scramble: true,
+  },
+  { word: "backend", hint: "server side of an applicaiton", scramble: true },
+  { word: "valorant", hint: "a game that we all love xD", scramble: true },
+  {
+    word: "discord",
+    hint: "the platform where hisaab kitaab gang hangouts",
+    scramble: true,
+  },
+  { word: "meri", hint: "something related to yourself", display: "mairi" },
 ];
-
-
-
 
 let correctword = "";
 let currentword = "";
 let guessesleft = 5;
 let score = 0;
+let unscrambledcorrectword = "";
+let realdisplayword = "";
 
 function initgame() {
   let randomobj = wordlist[Math.floor(Math.random() * wordlist.length)];
+  correctword = randomobj.word;
 
   let wordarray = randomobj.word.split("");
 
-  for (let i = wordarray.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [wordarray[i], wordarray[j]] = [wordarray[j], wordarray[i]];
+  let wordscramble = randomobj.scramble;
+  // let realdisplay = randomobj.display;
+  let realdisplay = "";
+
+  console.log(wordscramble);
+  console.log(realdisplay);
+  
+  if (randomobj.display){
+     realdisplay = randomobj.display;
+  }
+  
+  else if (wordscramble == true) {
+    for (let i = wordarray.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [wordarray[i], wordarray[j]] = [wordarray[j], wordarray[i]];
+    }
+  } 
+
+  else {
+    // unscrambledcorrectword = randomobj.correctwordd;
+    realdisplay = correctword;
   }
 
-  correctword = randomobj.word;
   worddisplay.innerText = wordarray.join("").toLocaleUpperCase();
   hinttext.innerText = "";
   userinput.value = "";
@@ -45,11 +70,10 @@ function initgame() {
 function checkguess() {
   let userword = userinput.value.toLowerCase();
 
-  if (userword=="") {
+  if (userword == "") {
     messageE.style.color = "#e72c1f";
     messageE.style.textShadow = "0px 0px 20px #e72c1f";
-    return messageE.innerText = "Enter something dawg!";
-
+    return (messageE.innerText = "Enter something dawg!");
   }
 
   if (userword === correctword) {
@@ -59,7 +83,6 @@ function checkguess() {
     messageE.style.textShadow = "0px 0px 20px #3be444";
     messageE.innerText = `Correct! It is ${correctword.toUpperCase()}`;
     setTimeout(initgame, 1500);
-
   } else {
     guessesleft--;
     guessmsg.innerText = guessesleft;
@@ -68,39 +91,30 @@ function checkguess() {
     messageE.style.textShadow = "0px 0px 20px #eb2626";
     messageE.innerText = `Wrong! Tryagain`;
 
-     if (guessesleft < 1) {
-    alert(`Game Over! The word was ${correctword.toUpperCase()}`);
-    score = 0;
-    scoreEl.innerText = score;
-    setTimeout(initgame, 1500);
+    if (guessesleft < 1) {
+      alert(`Game Over! The word was ${correctword.toUpperCase()}`);
+      score = 0;
+      scoreEl.innerText = score;
+      setTimeout(initgame, 1500);
     }
   }
-
- 
 }
 
-checkbtn.addEventListener("click" ,()=>{
-checkguess();
+checkbtn.addEventListener("click", () => {
+  checkguess();
 });
 
+userinput.addEventListener("keyup", (e) => {
+  if (e.key == "Enter") {
+    checkguess();
+  }
+});
 
-
-userinput.addEventListener("keyup" ,(e)=>{
-    if(e.key=="Enter") {
-        checkguess();
-    }
-})
-
-hintbtn.addEventListener("click",()=>{
-    // hinttext.style.display="flex";
-    // hinttext.style.textAlign="center";
-    const hintt= wordlist.find(obj => obj.word === correctword).hint;
-    hinttext.innerText=`Hint : ${hintt}`;
-})
-
+hintbtn.addEventListener("click", () => {
+  // hinttext.style.display="flex";
+  // hinttext.style.textAlign="center";
+  const hintt = wordlist.find((obj) => obj.word === correctword).hint;
+  hinttext.innerText = `Hint : ${hintt}`;
+});
 
 initgame();
-
-
-
-
