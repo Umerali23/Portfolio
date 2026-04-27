@@ -13,14 +13,37 @@ const wordlist = [
     hint: "language to make a we b functionable",
     scramble: true,
   },
-  { word: "backend", hint: "server side of an applicaiton", scramble: true },
-  { word: "valorant", hint: "a game that we all love xD", scramble: true },
+
+  { word: "backend", 
+    hint: "server side of an applicaiton", 
+    scramble: true },
+
+  { word: "valorant", 
+    hint: "a game that we all love xD", 
+    scramble: true },
+
   {
     word: "discord",
     hint: "the platform where hisaab kitaab gang hangouts",
     scramble: true,
   },
-  { word: "meri", hint: "something related to yourself", display: "mairi" },
+
+  { word: "meri", 
+    hint: "something related to yourself", 
+    scramble: false,
+    display: "mairi" 
+  },
+
+  { word: "yeh", 
+    hint: "pointing towards something specific", 
+    scramble: false,
+    display: "Yy" 
+  },
+
+  
+
+
+
 ];
 
 let correctword = "";
@@ -44,22 +67,28 @@ function initgame() {
   console.log(realdisplay);
   
   if (randomobj.display){
+    // letcorrectword = randomobj.display;
      realdisplay = randomobj.display;
   }
   
-  else if (wordscramble == true) {
+  else if (wordscramble === true) {
+    let wordarray = correctword.split("");
     for (let i = wordarray.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       [wordarray[i], wordarray[j]] = [wordarray[j], wordarray[i]];
     }
+    realdisplay = wordarray.join("");
   } 
 
   else {
     // unscrambledcorrectword = randomobj.correctwordd;
     realdisplay = correctword;
+    // realdisplay = randomobj.word;
   }
 
-  worddisplay.innerText = wordarray.join("").toLocaleUpperCase();
+
+  // worddisplay.innerText = wordarray.join("").toLocaleUpperCase();
+  worddisplay.innerText = realdisplay.toLocaleUpperCase();
   hinttext.innerText = "";
   userinput.value = "";
   messageE.innerText = "";
@@ -83,6 +112,7 @@ function checkguess() {
     messageE.style.textShadow = "0px 0px 20px #3be444";
     messageE.innerText = `Correct! It is ${correctword.toUpperCase()}`;
     setTimeout(initgame, 1500);
+    
   } else {
     guessesleft--;
     guessmsg.innerText = guessesleft;
@@ -94,8 +124,8 @@ function checkguess() {
     if (guessesleft < 1) {
       alert(`Game Over! The word was ${correctword.toUpperCase()}`);
       score = 0;
-      scoreEl.innerText = score;
-      setTimeout(initgame, 1500);
+      scoremsg.innerText = score;
+      gameinit();
     }
   }
 }
