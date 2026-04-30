@@ -7,6 +7,37 @@ const guessmsg = document.getElementById("guesses");
 const scoremsg = document.getElementById("score");
 const messageE = document.getElementById("message");
 
+const body = document.body;
+// SOUNDS
+
+let correctsound = new Audio("sounds/correct.mp3");
+let wrongsound = new Audio("sounds/wrong.mp3");
+
+correctsound.volume=0.3;
+wrongsound.volume=0.15;
+
+// correctsound.play();
+// wrongsound.play();
+
+function playsound(audioo){
+  audioo.pause();
+  audioo.currentTime=1.1;
+  audioo.play();
+}
+
+function wrongaudio(audioo) {
+  audioo.pause();
+  audioo.currentTime=1.9;
+  audioo.play();
+  
+}
+
+
+
+
+let gamecontainer = document.getElementById("gamecontainer");
+
+
 const wordlist = [
   {
     word: "javascript",
@@ -14,13 +45,9 @@ const wordlist = [
     scramble: true,
   },
 
-  { word: "backend", 
-    hint: "server side of an applicaiton", 
-    scramble: true },
+  { word: "backend", hint: "server side of an applicaiton", scramble: true },
 
-  { word: "valorant", 
-    hint: "a game that we all love xD", 
-    scramble: true },
+  { word: "valorant", hint: "a game that we all love xD", scramble: true },
 
   {
     word: "discord",
@@ -28,22 +55,19 @@ const wordlist = [
     scramble: true,
   },
 
-  { word: "meri", 
-    hint: "something related to yourself", 
+  {
+    word: "meri",
+    hint: "something related to yourself",
     scramble: false,
-    display: "mairi" 
+    display: "mairi",
   },
 
-  { word: "yeh", 
-    hint: "pointing towards something specific", 
+  {
+    word: "yeh",
+    hint: "pointing towards something specific",
     scramble: false,
-    display: "Yy" 
+    display: "Yy",
   },
-
-  
-
-
-
 ];
 
 let correctword = "";
@@ -52,8 +76,16 @@ let guessesleft = 5;
 let score = 0;
 let unscrambledcorrectword = "";
 let realdisplayword = "";
+let isBetweenWords = false;  
 
 function initgame() {
+  isBetweenWords = false;
+  gamecontainer.style.borderColor= "var(--subtleborder)";
+  document.body.style.backgroundColor="var(--bg)";
+
+
+
+
   let randomobj = wordlist[Math.floor(Math.random() * wordlist.length)];
   correctword = randomobj.word;
 
@@ -65,27 +97,22 @@ function initgame() {
 
   console.log(wordscramble);
   console.log(realdisplay);
-  
-  if (randomobj.display){
+
+  if (randomobj.display) {
     // letcorrectword = randomobj.display;
-     realdisplay = randomobj.display;
-  }
-  
-  else if (wordscramble === true) {
+    realdisplay = randomobj.display;
+  } else if (wordscramble === true) {
     let wordarray = correctword.split("");
     for (let i = wordarray.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       [wordarray[i], wordarray[j]] = [wordarray[j], wordarray[i]];
     }
     realdisplay = wordarray.join("");
-  } 
-
-  else {
+  } else {
     // unscrambledcorrectword = randomobj.correctwordd;
     realdisplay = correctword;
     // realdisplay = randomobj.word;
   }
-
 
   // worddisplay.innerText = wordarray.join("").toLocaleUpperCase();
   worddisplay.innerText = realdisplay.toLocaleUpperCase();
@@ -97,6 +124,8 @@ function initgame() {
 }
 
 function checkguess() {
+  if (isBetweenWords) return;
+
   let userword = userinput.value.toLowerCase();
 
   if (userword == "") {
@@ -106,26 +135,49 @@ function checkguess() {
   }
 
   if (userword === correctword) {
+    // body.classList.add("correct-guess");
+
+    playsound(correctsound);
+    gamecontainer.classList.add("correct-guess" , "correctguessanimation");
+    setTimeout(() => gamecontainer.classList.remove("correct-guess"),1500 );
+    // setTimeout(() => gamecontainer.classList.remove("wrongguessanimation"),1500 );
+
+    setTimeout(() => {
+      gamecontainer.classList.remove("correctguessanimation");
+    }, 1500);
+    
+    
+    
     score++;
     scoremsg.innerText = score;
-    messageE.style.color = "#3be444";
-    messageE.style.textShadow = "0px 0px 20px #3be444";
     messageE.innerText = `Correct! It is ${correctword.toUpperCase()}`;
-    setTimeout(initgame, 1500);
     
+    isBetweenWords = true;
+    setTimeout(initgame, 1500);
   } else {
+
+    wrongaudio(wrongsound);
+
+
+    gamecontainer.classList.add("incorrect-guess", "wrongguessanimation");
+    // gamecontainer.classList.add("incorrect-guess");
+
+    setTimeout(() => {
+      gamecontainer.classList.remove("wrongguessanimation");
+    }, 150);
+    
+    setTimeout(()=>gamecontainer.classList.remove("incorrect-guess"),1500);
+
     guessesleft--;
     guessmsg.innerText = guessesleft;
 
-    messageE.style.color = "#eb2626";
-    messageE.style.textShadow = "0px 0px 20px #eb2626";
-    messageE.innerText = `Wrong! Tryagain`;
+    messageE.innerText = `Wrong! Tryagain`;  
 
     if (guessesleft < 1) {
       alert(`Game Over! The word was ${correctword.toUpperCase()}`);
       score = 0;
       scoremsg.innerText = score;
-      gameinit();
+      initgame();
     }
   }
 }
@@ -145,6 +197,7 @@ hintbtn.addEventListener("click", () => {
   // hinttext.style.textAlign="center";
   const hintt = wordlist.find((obj) => obj.word === correctword).hint;
   hinttext.innerText = `Hint : ${hintt}`;
+  // gamecontainer.style.borderColor = "#fff";
 });
 
 initgame();

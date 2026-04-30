@@ -17,6 +17,34 @@
     --inputbg : #03101d;
 }
 
+.correct-guess {
+    --primary-color: #84f09f;
+    --bg: #051102;
+    --card: #081a0c;
+    --text: #e4ffe5;
+    --subtleborder: #0f8a0f;
+    --accent: #3cff4c;
+    --cardshadow : #093f02;
+    --darktext : #161616;
+    --inputbg : #031d03;
+    
+}
+
+.incorrect-guess {
+    --primary-color: #f08484;
+    --bg: #140b0b;
+    --card: #250c0c;
+    --text: #e4ffe5;
+    --subtleborder: #750d0d;
+    --accent: #ff3c3c;
+    --cardshadow : #2c0000;
+    --darktext : #161616;
+    --inputbg : #1d0303;
+    
+}
+
+
+
 body {
     display: flex;
     justify-content: center;
@@ -28,6 +56,7 @@ body {
 
 .gamecontainer {
     border: 2px solid var(--subtleborder);
+    /* border-color: #8a0f34; */
     padding: 2.5rem;
     border-radius: 1.2rem;
     background-color: var(--card);
@@ -38,6 +67,7 @@ body {
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    /* animation: correctguess 0.25s ease-in-out 0.5s; */
 
 }
 
@@ -155,3 +185,49 @@ body {
     /* font-size: larger; */
 }
 
+
+@keyframes wrongguess{
+    0%{
+        transform: translateY(-20px);
+    }    
+    
+    50%{
+        transform: translateY(+20px);
+    }
+
+    100%{
+        transform: translateY(0px);
+    }    
+
+}
+
+@keyframes correctguess {
+    0%{
+        transform: scale(1);
+        transform: translateX(0px);
+    }
+    
+    25%{
+        transform: scale(1.5);
+        transform: translateX(20px);
+    }
+
+    50%{
+        transform: scale(1);
+        transform: translateX(0px);
+    }
+
+    100%{
+        transform: scale(1);
+        transform: translateX(0px);
+    }
+    
+}
+
+.wrongguessanimation {
+    animation: wrongguess 0.15s ease-in-out;
+}
+
+.correctguessanimation {
+    animation: correctguess 0.15s ease-in-out;
+}
