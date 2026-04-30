@@ -19,12 +19,12 @@
 
 .correct-guess {
     --primary-color: #84f09f;
-    --bg: #051102;
+    --bg: #101a0e;
     --card: #081a0c;
     --text: #e4ffe5;
-    --subtleborder: #0f8a0f;
-    --accent: #3cff4c;
-    --cardshadow : #093f02;
+    --subtleborder: #0b4b0b;
+    --accent: #60dd6e;
+    --cardshadow : #2a4626;
     --darktext : #161616;
     --inputbg : #031d03;
     
@@ -33,11 +33,11 @@
 .incorrect-guess {
     --primary-color: #f08484;
     --bg: #140b0b;
-    --card: #250c0c;
+    --card: #221616;
     --text: #e4ffe5;
-    --subtleborder: #750d0d;
-    --accent: #ff3c3c;
-    --cardshadow : #2c0000;
+    --subtleborder: #300909;
+    --accent: #e46b6b;
+    --cardshadow : #2c0404;
     --darktext : #161616;
     --inputbg : #1d0303;
     
